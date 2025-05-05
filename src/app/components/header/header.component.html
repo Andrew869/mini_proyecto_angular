@@ -1,0 +1,35 @@
+<mat-toolbar color="primary" class="header">
+    <div class="logo-container">
+      <img src="assets/images/logo.png" alt="FitLife Logo" class="logo">
+      <span class="site-name">FitLife</span>
+    </div>
+    <span class="slogan">Tu camino hacia una vida saludable</span>
+    
+    <div class="spacer"></div>
+    
+    <nav class="navigation">
+      <a mat-button routerLink="/" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+      <a mat-button routerLink="/classes" routerLinkActive="active-link">Clases</a>
+      <a mat-button routerLink="/trainers" routerLinkActive="active-link">Entrenadores</a>
+      <a mat-button routerLink="/about" routerLinkActive="active-link">Nosotros</a>
+      <a mat-button routerLink="/contact" routerLinkActive="active-link">Contacto</a>
+    </nav>
+    
+    <div class="user-actions">
+      @if (authService.currentUser(); as user) {
+        <button mat-button [matMenuTriggerFor]="userMenu">
+          <mat-icon>account_circle</mat-icon>
+          {{ user.fullName }}
+        </button>
+        <mat-menu #userMenu="matMenu">
+          <button mat-menu-item routerLink="/admin">Panel Admin</button>
+          <button mat-menu-item (click)="logout()">Cerrar Sesión</button>
+        </mat-menu>
+      } @else {
+        <button mat-button routerLink="/login">
+          <mat-icon>login</mat-icon>
+          Iniciar Sesión
+        </button>
+      }
+    </div>
+  </mat-toolbar>

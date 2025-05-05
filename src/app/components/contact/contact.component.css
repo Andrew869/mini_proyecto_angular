@@ -1,0 +1,70 @@
+.contact-container {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .page-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: #333;
+  }
+  
+  .contact-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+  
+  .contact-info {
+    flex: 1;
+    min-width: 300px;
+  }
+  
+  .contact-form {
+    flex: 2;
+    min-width: 300px;
+  }
+  
+  .info-item {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .info-item mat-icon {
+    margin-right: 15px;
+    color: #f44336;
+  }
+  
+  .full-width {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  .membership-options {
+    margin-bottom: 20px;
+  }
+  
+  .membership-options label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+  
+  .membership-options mat-checkbox {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .checkbox-error {
+    font-size: 0.75rem;
+    color: #f44336;
+    margin-top: 5px;
+  }
+  
+  .submit-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+  }
