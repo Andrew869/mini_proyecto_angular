@@ -12,6 +12,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { StorageService } from '../../services/storage.service';
 import { ContactForm } from '../../interfaces/contact-form.interface';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-contact',
@@ -27,7 +28,9 @@ import { ContactForm } from '../../interfaces/contact-form.interface';
     MatCheckboxModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatSnackBarModule],
+    MatSnackBarModule,
+    MatIconModule
+  ],
   templateUrl: './contact.component.html',
   styleUrl: './contact.component.css'
 })
