@@ -26,10 +26,20 @@
     flex: 2;
     min-width: 300px;
   }
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
   
   .info-item {
     display: flex;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
+  }
+
+  h3 {
+    margin-bottom: 10px;
   }
   
   .info-item mat-icon {

@@ -6,3 +6,7 @@ mat-toolbar {
 .header-menu {
     display: flex;
 }
+
+.active-link {
+    background: color-mix(in srgb,var(--mat-sys-primary) 10%,transparent);
+}
