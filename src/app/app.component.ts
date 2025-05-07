@@ -2,20 +2,18 @@ import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterModule],
+  imports: [RouterOutlet, RouterModule, HeaderComponent, FooterComponent],
   template: `
-    <nav>
-      <a routerLink="/home" routerLinkActive="active">Home</a>
-      <a routerLink="/about" routerLinkActive="active">About</a>
-      <a routerLink="/classes" routerLinkActive="active">classes</a>
-      <a routerLink="/trainers" routerLinkActive="active">trainers</a>
-      <a routerLink="/contact" routerLinkActive="active">contact</a>
-      <a routerLink="/login" routerLinkActive="active">login</a>
-    </nav>
-    <router-outlet></router-outlet>
+    <app-header/>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+    <app-footer/>
   `,
   styleUrl: './app.component.css'
 })
