@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, catchError } from 'rxjs';
+import { Observable, of, catchError, take } from 'rxjs';
 import { GymClass } from '../interfaces/class.interface';
 import { Trainer } from '../interfaces/trainer.interface'
 
@@ -8,8 +8,10 @@ import { Trainer } from '../interfaces/trainer.interface'
   providedIn: 'root'
 })
 export class ApiService {
-  private classesApiUrl = 'https://pruebac.free.beeceptor.com';
-  private trainersApiUrl = 'https://fitness-trainers.free.beeceptor.com';
+  private classesApiUrl = 'https://angula.free.beeceptor.com/';
+  private trainersApiUrl = 'https://auxit.free.beeceptor.com';
+  //private classesApiUrl = 'https://fitness-Classes.free.beeceptor.com';//
+  //private trainersApiUrl = 'https://fitness-trainers.free.beeceptor.com';//
   
   private backupClassesData: GymClass[] = [
     {
@@ -138,7 +140,7 @@ export class ApiService {
 
   getClasses(): Observable<GymClass[]> {
     return this.http.get<GymClass[]>(this.classesApiUrl)
-      .pipe(
+      .pipe(take(1),
         catchError(error => {
           console.error('Error fetching classes from API:', error);
           return of(this.backupClassesData);
@@ -149,16 +151,16 @@ export class ApiService {
   getClassById(id: number): Observable<GymClass | undefined> {
     return this.http.get<GymClass>(`${this.classesApiUrl}/${id}`)
       .pipe(
-        catchError(error => {
+        /*catchError(error => {
           console.error(`Error fetching class with id ${id} from API:`, error);
           return of(this.backupClassesData.find(c => c.id === id));
-        })
+        })*/
       );
   }
 
   getTrainers(): Observable<Trainer[]> {
     return this.http.get<Trainer[]>(this.trainersApiUrl)
-      .pipe(
+      .pipe(take(1),
         catchError(error => {
           console.error('Error fetching trainers from API:', error);
           return of(this.backupTrainersData);
