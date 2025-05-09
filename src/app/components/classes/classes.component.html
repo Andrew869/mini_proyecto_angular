@@ -1,1 +1,49 @@
-<p>classes works!</p>
+    <main class="classes-container">
+      <section class="classes-hero">
+        <div class="classes-hero-content">
+          <h1>Nusetras clases</h1>
+          <p>Descubre el entrenamiento perfecto para tu viaje fitness</p>
+        </div>
+      </section>
+      
+      <section class="classes-search">
+        <div class="search-bar">
+          <mat-icon>search</mat-icon>
+          <input 
+            type="text" 
+            placeholder="Buscar clase..." 
+            (keyup)="searchClasses()"
+          >
+        </div>
+      </section>
+      
+      <section class="classes-grid">
+        @if (filteredClasses.length > 0) {
+          @for (classItem of filteredClasses; track classItem.id) {
+            <mat-card class="class-card">
+              <img mat-card-image [src]="classItem.image" [alt]="classItem.name">
+              <mat-card-content>
+                <h2>{{ classItem.name }}</h2>
+                <p class="instructor">Instructor: {{ classItem.instructor }}</p>
+                <p class="description">{{ classItem.description }}</p>
+                <div class="class-details">
+                  <span class="detail">
+                    <mat-icon>access_time</mat-icon> {{ classItem.duration }} min
+                  </span>
+                </div>
+                <div class="class-schedule">
+                  @for (schedule of classItem.schedule; track schedule) {
+                    <p>{{ schedule }}</p>
+                  }
+                </div>
+              </mat-card-content>
+            </mat-card>
+          }
+        } @else {
+          <div class="no-results">
+            <mat-icon>search_off</mat-icon>
+            <p>No se encontraron clases con ese nombre.</p>
+          </div>
+        }
+      </section>
+    </main>

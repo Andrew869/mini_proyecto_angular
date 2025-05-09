@@ -1,0 +1,149 @@
+.trainers-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .trainers-hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('/cartel2.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    margin-bottom: 40px;
+    border-radius: 8px;
+  }
+  
+  .trainers-hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+  }
+  
+  .trainers-hero-content p {
+    font-size: 1.5rem;
+  }
+  
+  .trainers-intro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 40px;
+  }
+  
+  .trainers-intro h2 {
+    font-size: 2rem;
+    color: #3f51b5;
+    margin-bottom: 15px;
+  }
+  
+  .trainers-intro p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
+  .trainers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 30px;
+  }
+  
+  .trainer-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+  }
+  
+  .trainer-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .trainer-image img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  
+  .trainer-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+    color: #3f51b5;
+  }
+  
+  .specialty {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  .experience {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    color: #f57c00;
+  }
+  
+  .experience mat-icon {
+    margin-right: 5px;
+  }
+  
+  .bio {
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  
+  .certifications h4 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+    color: #3f51b5;
+  }
+  
+  .certifications ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .certifications li {
+    margin-bottom: 5px;
+  }
+  
+  .social-media {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+  }
+  
+  .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    color: #3f51b5;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    background-color: #3f51b5;
+    color: white;
+  }
+  
+  mat-card-actions {
+    display: flex;
+    justify-content: center;
+    padding: 16px;
+  }
+  
+  @media (max-width: 768px) {
+    .trainers-grid {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+  }

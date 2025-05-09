@@ -5,6 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
+import { VideoPipe } from '../../video.pipe';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ import { RouterModule } from '@angular/router';
     MatButtonModule,
     MatCardModule,
     MatDividerModule,
-    RouterModule],
+    RouterModule,
+    VideoPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -47,4 +49,6 @@ export class HomeComponent {
   navigateToClass(classId: number) {
     console.log(`Navegando a la clase con ID: ${classId}`);
   }
+
+  video:string="DA0if1kh4sg?si=zc8kz6I2V3Yz4XrH";
 }
