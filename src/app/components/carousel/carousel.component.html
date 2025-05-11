@@ -1,1 +1,35 @@
+<<<<<<< HEAD
 
+=======
+<div class="carousel-container">
+    <div class="carousel-inner" [style.transform]="'translateX(' + (-currentSlide * 100) + '%)'">
+      @for (item of items; track item.title) {
+        <div class="carousel-item">
+          <div class="carousel-img-container" [style.background-image]="'url(' + item.image + ')'"></div>
+          <div class="carousel-content">
+            <h2>{{ item.title }}</h2>
+            <p>{{ item.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+    
+    <button class="carousel-control prev" (click)="prevSlide()" [disabled]="currentSlide === 0" [class.disabled]="currentSlide === 0">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+    
+    <button class="carousel-control next" (click)="nextSlide()" [disabled]="currentSlide === items.length - 1" [class.disabled]="currentSlide === items.length - 1">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+    
+    <div class="carousel-indicators">
+      @for (item of items; track item.title; let i = $index) {
+        <button 
+          class="indicator" 
+          [class.active]="i === currentSlide"
+          (click)="goToSlide(i)">
+        </button>
+      }
+    </div>
+  </div>
+>>>>>>> origin/main

@@ -1,1 +1,60 @@
-<p>trainers works!</p>
+    <main class="trainers-container">
+      <section class="trainers-hero">
+        <div class="trainers-hero-content">
+          <h1>Nuestros Entrenadores expertos</h1>
+          <p>Conoce a nuestros profesionales quienes te guiaran en tu vida fitness</p>
+        </div>
+      </section>
+      
+      <section class="trainers-intro">
+        <h2>Guia Profesional</h2>
+        <p>En FitLife, nos enorgullecemos de nuestro equipo de profesionales del fitness altamente calificados y apasionados. Cada entrenador aporta una experiencia y experiencias únicas para ayudarte a alcanzar objetivos de acondicionamiento físico de manera segura y efectiva.</p>
+      </section>
+      
+      <section class="trainers-grid">
+        @for (trainer of trainers; track trainer.id) {
+          <mat-card class="trainer-card">
+            <div class="trainer-image">
+              <img [src]="trainer.image" [alt]="trainer.name">
+            </div>
+            <mat-card-content>
+              <h3>{{ trainer.name }}</h3>
+              <p class="specialty">{{ trainer.specialty }}</p>
+              <div class="experience">
+                <mat-icon>stars</mat-icon>
+                <span>{{ trainer.experience }}+ Años de Experiencia</span>
+              </div>
+              <p class="bio">{{ trainer.bio }}</p>
+              <div class="certifications">
+                <h4>Certificasion</h4>
+                <ul>
+                  @for (cert of trainer.certifications; track cert) {
+                    <li>{{ cert }}</li>
+                  }
+                </ul>
+              </div>
+              <div class="social-media">
+                @if (trainer.socialMedia.instagram) {
+                  <a [href]="trainer.socialMedia.instagram" target="_blank" class="social-icon">
+                    <mat-icon>camera_alt</mat-icon>
+                  </a>
+                }
+                @if (trainer.socialMedia.facebook) {
+                  <a [href]="trainer.socialMedia.facebook" target="_blank" class="social-icon">
+                    <mat-icon>facebook</mat-icon>
+                  </a>
+                }
+                @if (trainer.socialMedia.twitter) {
+                  <a [href]="trainer.socialMedia.twitter" target="_blank" class="social-icon">
+                    <mat-icon>twitter</mat-icon>
+                  </a>
+                }
+              </div>
+            </mat-card-content>
+            <mat-card-actions>
+              <button mat-button color="primary">Agenda una sesion</button>
+            </mat-card-actions>
+          </mat-card>
+        }
+      </section>
+    </main>
