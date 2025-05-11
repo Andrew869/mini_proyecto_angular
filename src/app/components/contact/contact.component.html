@@ -41,6 +41,7 @@
             </div>
           </div>
         </mat-card-content>
+        <!-- {{ formData.invalid }} -->
       </mat-card>
       
       <mat-card class="contact-form">
@@ -49,17 +50,15 @@
         </mat-card-header>
         
         <mat-card-content>
-          <form #contactForm="ngForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="formData" #formRef="ngForm" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Nombre Completo</mat-label>
               <input 
                 matInput 
                 type="text" 
-                name="name" 
-                [(ngModel)]="formData.name" 
-                required
-                pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+"
-                #name="ngModel">
+                name="name"
+                formControlName="name"
+                >
               @if (name.invalid && (name.dirty || name.touched)) {
                 <mat-error>
                   @if (name.errors?.['required']) {
@@ -70,17 +69,14 @@
                 </mat-error>
               }
             </mat-form-field>
-            
+            <!-- {{ name.invalid }} -->
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Correo Electrónico</mat-label>
               <input 
                 matInput 
                 type="email" 
                 name="email" 
-                [(ngModel)]="formData.email" 
-                required
-                email
-                #email="ngModel">
+                formControlName="email">
               @if (email.invalid && (email.dirty || email.touched)) {
                 <mat-error>
                   @if (email.errors?.['required']) {
@@ -91,17 +87,14 @@
                 </mat-error>
               }
             </mat-form-field>
-            
+            <!-- {{ email.invalid }} -->
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Teléfono</mat-label>
               <input 
                 matInput 
                 type="tel" 
-                name="phone" 
-                [(ngModel)]="formData.phone" 
-                required
-                pattern="[0-9]{10}"
-                #phone="ngModel">
+                name="phone"
+                formControlName="phone">
               @if (phone.invalid && (phone.dirty || phone.touched)) {
                 <mat-error>
                   @if (phone.errors?.['required']) {
@@ -112,14 +105,13 @@
                 </mat-error>
               }
             </mat-form-field>
-            
+            <!-- {{ phone.invalid }} -->
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Tipo de Servicio</mat-label>
               <mat-select 
                 name="serviceType" 
-                [(ngModel)]="formData.serviceType" 
-                required
-                #serviceType="ngModel">
+                formControlName="serviceType"
+                required>
                 @for (service of serviceTypes; track service) {
                   <mat-option [value]="service">{{ service }}</mat-option>
                 }
@@ -128,17 +120,15 @@
                 <mat-error>Seleccione un tipo de servicio</mat-error>
               }
             </mat-form-field>
-            
+            <!-- {{ serviceType.invalid }} -->
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Fecha Preferida para Visita</mat-label>
               <input 
                 matInput 
                 [matDatepicker]="picker" 
                 name="preferredDate" 
-                [(ngModel)]="formData.preferredDate" 
-                [min]="minDate"
-                required
-                #preferredDate="ngModel">
+                formControlName="preferredDate"
+                [min]="minDate">
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
               @if (preferredDate.invalid && (preferredDate.dirty || preferredDate.touched)) {
@@ -151,31 +141,31 @@
                 </mat-error>
               }
             </mat-form-field>
-            
+            <!-- {{ preferredDate.invalid }} -->
             <div class="membership-options">
               <label>Opciones de Membresía que te Interesan:</label>
               @for (option of membershipOptions; track option) {
                 <mat-checkbox 
-                  [value]="option" 
-                  (change)="onCheckboxChange(option, $event.checked)">
+                  [value]="option"
+                  [checked]="isChecked(option)"
+                  (change)="onCheckboxChange($event)">
                   {{ option }}
                 </mat-checkbox>
               }
-              @if (formData.membershipOptions.length === 0 && checkboxTouched) {
+              @if (membership.invalid && checkboxTouched) {
                 <mat-error class="checkbox-error">Seleccione al menos una opción</mat-error>
               }
             </div>
-            
+            <!-- {{ membership | json }} -->
+            <!-- {{ membership.invalid }} -->
             <mat-form-field appearance="outline" class="full-width">
               <mat-label>Mensaje</mat-label>
               <textarea 
                 matInput 
                 rows="5" 
                 name="message" 
-                [(ngModel)]="formData.message" 
-                required
-                minlength="20"
-                #message="ngModel"></textarea>
+                formControlName="message">
+              </textarea>
               @if (message.invalid && (message.dirty || message.touched)) {
                 <mat-error>
                   @if (message.errors?.['required']) {
@@ -186,13 +176,13 @@
                 </mat-error>
               }
             </mat-form-field>
-            
+            <!-- {{ message.invalid }} -->
             <button 
               mat-raised-button 
               color="primary" 
               type="submit" 
               class="submit-button"
-              [disabled]="!isFormValid()">
+              [disabled]="formData.invalid">
               Enviar Mensaje
             </button>
           </form>
