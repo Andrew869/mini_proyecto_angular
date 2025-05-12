@@ -35,7 +35,7 @@ export class AdminPanelComponent implements OnInit {
   indexEditando: number | null = null;
   formEditar = { nombre: '', correo: '' };
 
-  clasesDisponibles = ['Yoga', 'Box', 'HIIT', 'Pilates', 'Crossfit'];
+  clasesDisponibles = ['Yoga', 'Zumba', 'Spinnig', 'Pilates', 'Crossfit'];
   opcionesEquipo = ['Tapete para yoga', 'Pesas', 'Cuerda', 'Banda Elástica'];
   hoy = new Date().toISOString().split('T')[0];
 

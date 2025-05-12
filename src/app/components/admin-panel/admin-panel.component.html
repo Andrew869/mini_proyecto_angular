@@ -1,7 +1,7 @@
 <div class="admin-panel">
     <h2>Panel de Administración</h2>
   
-    <!-- Botones para cambiar entre vistas -->
+    <!-- Botones  -->
     <div class="vista-selector">
       <button (click)="seleccionarVista('template')" [disabled]="vistaActual === 'template'">
         Ver Formulario Template
@@ -11,7 +11,7 @@
       </button>
     </div>
   
-    <!-- Vista de datos del formulario Template -->
+    <!-- formulario Template -->
     <div *ngIf="vistaActual === 'template'">
       <h3>Datos del Formulario por Template</h3>
   
@@ -123,7 +123,7 @@
   </form>
 </div>
   
-    <!-- Vista de datos del formulario Reactivo -->
+    <!-- formulario Reactivo -->
     <div *ngIf="vistaActual === 'reactivo'">
       <h3>Datos del Formulario Reactivo</h3>
   
