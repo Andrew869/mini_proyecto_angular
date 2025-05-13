@@ -1,0 +1,54 @@
+<div class="panel">
+    <form #claseForm="ngForm" (ngSubmit)="registrarClase(claseForm)">
+      <label>
+        Nombre:
+        <input type="text" name="nombre" [(ngModel)]="formTemplate.nombre" required />
+      </label>
+
+      <label>
+        Correo:
+        <input type="email" name="correo" [(ngModel)]="formTemplate.correo" required />
+      </label>
+
+      <label>
+        Clase:
+        <select name="clase" [(ngModel)]="formTemplate.clase" required>
+          <option value="" disabled selected>Seleccione una clase</option>
+          @for (c of clasesDisponibles; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+      </label>
+
+      <label>
+        Horario:
+        <input type="time" name="horario" [(ngModel)]="formTemplate.horario" required />
+      </label>
+
+      <label>
+        Fecha:
+        <input type="date" name="fecha" [(ngModel)]="formTemplate.fecha" [min]="hoy" required />
+      </label>
+
+      <fieldset>
+        <legend>Equipamiento</legend>
+        @for (equipo of opcionesEquipo; track equipo) {
+          <label>
+            <input
+              type="checkbox"
+              name="equipo"
+              [value]="equipo"
+              (change)="actualizarEquipamiento($event)"
+              [checked]="formTemplate.equipamiento.includes(equipo)"
+            />
+            {{ equipo }}
+          </label>
+        }
+      </fieldset>
+
+      <button type="submit">
+        {{ modoEdicion ? 'Actualizar Clase' : 'Registrar Clase' }}
+      </button>
+
+    </form>
+</div>

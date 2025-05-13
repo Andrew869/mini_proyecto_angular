@@ -4,15 +4,15 @@ import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-admin-panel',
-  standalone: true,
+  selector: 'app-clase-formulario',
   imports: [CommonModule, FormsModule],
-  templateUrl: './admin-panel.component.html',
-  styleUrls: ['./admin-panel.component.css']
+  templateUrl: './clase-formulario.component.html',
+  styleUrl: './clase-formulario.component.css'
 })
-export class AdminPanelComponent implements OnInit {
+export class ClaseFormularioComponent implements OnInit{
+
   datosTemplate: any[] = [];
-  focusedInput: string | null = null;
+  modoEdicion: boolean = false;
 
   formTemplate: {
     id?: number;
@@ -24,16 +24,9 @@ export class AdminPanelComponent implements OnInit {
     equipamiento: string[];
   } = this.inicializarFormulario();
 
-  editando: boolean = false;
-  indexEditando: number | null = null;
-  formEditar = { nombre: '', correo: '' };
-
   clasesDisponibles = ['Yoga', 'Zumba', 'Spinnig', 'Pilates', 'Crossfit'];
   opcionesEquipo = ['Tapete para yoga', 'Pesas', 'Cuerda', 'Banda Elástica'];
   hoy = new Date().toISOString().split('T')[0];
-
-  vistaActual: string = 'template';
-  modoEdicion: boolean = false;
 
   ngOnInit(): void {
     this.cargarDatos();
@@ -105,27 +98,4 @@ export class AdminPanelComponent implements OnInit {
     this.formTemplate = this.inicializarFormulario();
     this.modoEdicion = false;
   }
-
-  editarRegistro(registro: any) {
-    this.formTemplate = { ...registro };
-    this.modoEdicion = true;
-    this.vistaActual = 'template';
   }
-
-  eliminarRegistro(registro: any) {
-    Swal.fire({
-      title: '¿Eliminar este registro?',
-      text: 'Esta acción no se puede deshacer.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
-    }).then(result => {
-      if (result.isConfirmed) {
-        this.datosTemplate = this.datosTemplate.filter(r => r.id !== registro.id);
-        this.guardarDatos();
-        Swal.fire('Eliminado', 'El registro ha sido eliminado.', 'success');
-      }
-    });
-  }
-}

@@ -35,7 +35,7 @@ export class TrainersComponent implements OnInit {
     this.loading = true;
     this.apiService.getTrainers().subscribe({
       next: (data) => {
-        this.trainers = data;
+        this.trainers = data.trainers;
         this.loading = false;
       },
       error: (err) => {

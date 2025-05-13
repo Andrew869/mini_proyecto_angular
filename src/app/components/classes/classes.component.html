@@ -5,8 +5,10 @@
           <p>Descubre el entrenamiento perfecto para tu viaje fitness</p>
         </div>
       </section>
-      
-      <section class="classes-search">
+      <div class="register_btn">
+        <button mat-raised-button routerLink="/claseRegistro" color="primary">Registrate a una Clase!</button>
+      </div>
+      <section class="classes-search" [ngClass]="{'input-empty': !searchTerm.trim(),'input-filled': searchTerm.trim()}">
         <div class="search-bar">
           <mat-icon>search</mat-icon>
           <input 

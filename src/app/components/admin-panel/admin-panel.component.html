@@ -8,19 +8,28 @@
 
   @if (vistaActual === 'template') {
     <form #claseForm="ngForm" (ngSubmit)="registrarClase(claseForm)">
-      <label>
-        Nombre:
-        <input type="text" name="nombre" [(ngModel)]="formTemplate.nombre" required />
-      </label>
+        <label>
+          Nombre:
+          <input type="text" name="nombre" [(ngModel)]="formTemplate.nombre" required
+            (focus)="focusedInput = 'nombre'"
+            [ngStyle]="{'background-color': focusedInput === 'nombre' ? 'lightgray' : 'transparent'}"
+          />
+        </label>
 
       <label>
         Correo:
-        <input type="email" name="correo" [(ngModel)]="formTemplate.correo" required />
+        <input type="email" name="correo" [(ngModel)]="formTemplate.correo" required 
+          (focus)="focusedInput = 'correo'"
+          [ngStyle]="{'background-color': focusedInput === 'correo' ? 'lightgray' : 'transparent'}"
+        />
       </label>
 
       <label>
         Clase:
-        <select name="clase" [(ngModel)]="formTemplate.clase" required>
+        <select name="clase" [(ngModel)]="formTemplate.clase" required 
+          (focus)="focusedInput = 'clase'"
+          [ngStyle]="{'background-color': focusedInput === 'clase' ? 'lightgray' : 'transparent'}"
+        >
           <option value="" disabled selected>Seleccione una clase</option>
           @for (c of clasesDisponibles; track c) {
             <option [value]="c">{{ c }}</option>
@@ -30,12 +39,18 @@
 
       <label>
         Horario:
-        <input type="time" name="horario" [(ngModel)]="formTemplate.horario" required />
+        <input type="time" name="horario" [(ngModel)]="formTemplate.horario" required 
+          (focus)="focusedInput = 'horario'"
+          [ngStyle]="{'background-color': focusedInput === 'horario' ? 'lightgray' : 'transparent'}"
+        />
       </label>
 
       <label>
         Fecha:
-        <input type="date" name="fecha" [(ngModel)]="formTemplate.fecha" [min]="hoy" required />
+        <input type="date" name="fecha" [(ngModel)]="formTemplate.fecha" [min]="hoy" required 
+          (focus)="focusedInput = 'fecha'"
+          [ngStyle]="{'background-color': focusedInput === 'fecha' ? 'lightgray' : 'transparent'}"
+        />
       </label>
 
       <fieldset>

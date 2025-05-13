@@ -33,7 +33,7 @@ import { GymClass } from '../../interfaces/class.interface';
   styleUrl: './classes.component.css'
 })
 export class ClassesComponent implements OnInit {
-  classes: GymClass[] = [];
+  classesArray: GymClass[] = [];
   filteredClasses: GymClass[] = [];
   searchTerm: string = '';
   loading: boolean = true;
@@ -45,8 +45,10 @@ export class ClassesComponent implements OnInit {
     this.loading = true;
     this.apiService.getClasses().subscribe({
       next: (data) => {
-        this.classes = data;
-        this.filteredClasses = [...this.classes];
+        console.log(data);
+        
+        this.classesArray = data.classes;
+        this.filteredClasses = [...this.classesArray];
         this.loading = false;
       },
       error: (err) => {
@@ -59,7 +61,7 @@ export class ClassesComponent implements OnInit {
 
   searchClasses(): void {
     if (!this.searchTerm.trim()) {
-      this.filteredClasses = [...this.classes];
+      this.filteredClasses = [...this.classesArray];
       return;
     }
     
@@ -72,7 +74,7 @@ export class ClassesComponent implements OnInit {
       error: (err) => {
         console.error('Error searching classes', err);
         const term = this.searchTerm.toLowerCase().trim();
-        this.filteredClasses = this.classes.filter(classItem => 
+        this.filteredClasses = this.classesArray.filter(classItem => 
           classItem.name.toLowerCase().includes(term) ||
           classItem.instructor.toLowerCase().includes(term) ||
           classItem.description.toLowerCase().includes(term)
