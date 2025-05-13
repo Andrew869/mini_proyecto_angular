@@ -131,10 +131,14 @@ export class ContactComponent {
 
   onSubmit() {
     if (this.formData.invalid) return;
-    const formValues = this.formData.value;
-    localStorage.setItem('formData', JSON.stringify(formValues));
 
-    // this.storageService.saveContactForm({...this.formData});
+    const formValues = this.formData.value;
+
+    const existingData = JSON.parse(localStorage.getItem('datosContacto') || '[]');
+
+    existingData.push(formValues);
+
+    localStorage.setItem('datosContacto', JSON.stringify(existingData));
 
     this.snackBar.open('¡Formulario enviado con éxito! Nos pondremos en contacto contigo pronto.', 'Cerrar', {
       duration: 5000
