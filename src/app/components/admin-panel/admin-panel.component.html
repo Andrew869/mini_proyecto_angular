@@ -1,173 +1,99 @@
-<div class="admin-panel">
-    <h2>Panel de Administración</h2>
-  
-    <!-- Botones para cambiar entre vistas -->
-    <div class="vista-selector">
-      <button (click)="seleccionarVista('template')" [disabled]="vistaActual === 'template'">
-        Ver Formulario Template
-      </button>
-      <button (click)="seleccionarVista('reactivo')" [disabled]="vistaActual === 'reactivo'">
-        Ver Formulario Reactivo
-      </button>
-    </div>
-  
-    <!-- Vista de datos del formulario Template -->
-    <div *ngIf="vistaActual === 'template'">
-      <h3>Datos del Formulario por Template</h3>
-  
-      <table *ngIf="datosTemplate.length > 0; else sinDatosTemplate" border="1">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of datosTemplate; let i = index">
-            <td>{{ item.nombre }}</td>
-            <td>{{ item.correo }}</td>
-            <td>
-              <button (click)="editar(i)">Editar</button>
-              <button (click)="eliminar(i)">Eliminar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<div class="panel">
+  <h2>Panel de Administración</h2>
 
-      <h3>Registro a Clase Personalizada</h3>
+  <nav>
+    <button (click)="vistaActual = 'template'">Formulario</button>
+    <button (click)="vistaActual = 'tabla'">Registros</button>
+  </nav>
 
-<form #registroForm="ngForm" (ngSubmit)="registrarClase(registroForm)" class="formulario-clase">
-  <label>
-    Nombre completo:
-    <input type="text" name="nombre" [(ngModel)]="formTemplate.nombre" required minlength="3" />
-  </label>
-  <div *ngIf="registroForm.submitted && registroForm.controls['nombre']?.invalid">
-    <small *ngIf="registroForm.controls['nombre']?.errors?.['required']">Nombre es obligatorio.</small>
-    <small *ngIf="registroForm.controls['nombre']?.errors?.['minlength']">Mínimo 3 caracteres.</small>
-  </div>
-
-  <label>
-    Correo electrónico:
-    <input type="email" name="correo" [(ngModel)]="formTemplate.correo" required email />
-  </label>
-  <div *ngIf="registroForm.submitted && registroForm.controls['correo']?.invalid">
-    <small *ngIf="registroForm.controls['correo']?.errors?.['required']">Correo es obligatorio.</small>
-    <small *ngIf="registroForm.controls['correo']?.errors?.['email']">Correo no válido.</small>
-  </div>
-
-  <label>
-    Clase:
-    <select name="clase" [(ngModel)]="formTemplate.clase" required>
-      <option value="" disabled selected>Selecciona una clase</option>
-      <option *ngFor="let c of clasesDisponibles" [value]="c">{{ c }}</option>
-    </select>
-  </label>
-  <div *ngIf="registroForm.submitted && registroForm.controls['clase']?.invalid">
-    <small>Selecciona una clase.</small>
-  </div>
-
-  <label>
-    Preferencia de horario:
-    <label><input type="radio" name="horario" value="Mañana" [(ngModel)]="formTemplate.horario" required /> Mañana</label>
-    <label><input type="radio" name="horario" value="Tarde" [(ngModel)]="formTemplate.horario" /> Tarde</label>
-  </label>
-  <div *ngIf="registroForm.submitted && registroForm.controls['horario']?.invalid">
-    <small>Selecciona un horario.</small>
-  </div>
-
-  <label>
-    Fecha deseada:
-    <input type="date" name="fecha" [(ngModel)]="formTemplate.fecha" required [min]="hoy" />
-  </label>
-  <div *ngIf="registroForm.submitted && registroForm.controls['fecha']?.invalid">
-    <small>Fecha obligatoria y no puede ser anterior a hoy.</small>
-  </div>
-
-  <fieldset>
-    <legend>Equipamiento requerido:</legend>
-    <label *ngFor="let equipo of opcionesEquipo">
-      <input type="checkbox" name="equipo" [value]="equipo" (change)="actualizarEquipamiento($event)" />
-      {{ equipo }}
-    </label>
-  </fieldset>
-  <div *ngIf="registroForm.submitted && formTemplate.equipamiento.length === 0">
-    <small>Selecciona al menos un equipo.</small>
-  </div>
-
-  <button type="submit" [disabled]="registroForm.invalid || formTemplate.equipamiento.length === 0">
-    Enviar Registro
-  </button>
-</form>
-
-      <ng-template #sinDatosTemplate>
-        <p>No hay datos para mostrar.</p>
-      </ng-template>
-    </div>
-
-    <!-- Formulario de edición -->
-<div *ngIf="editando" class="form-edicion">
-  <h3>Editando Registro</h3>
-  <form (ngSubmit)="guardarEdicion()">
-    <label>
-      Nombre:
-      <input type="text" [(ngModel)]="formEditar.nombre" name="nombre" required />
-    </label>
-    <label>
-      Correo:
-      <input type="email" [(ngModel)]="formEditar.correo" name="correo" required />
-    </label>
-    <br />
-    <button type="submit">Guardar</button>
-    <button type="button" (click)="cancelarEdicion()">Cancelar</button>
-  </form>
-</div>
-  
-    <!-- Vista de datos del formulario Reactivo -->
-    <div *ngIf="vistaActual === 'reactivo'">
-      <h3>Datos del Formulario Reactivo</h3>
-  
-      <table *ngIf="datosReactivo.length > 0; else sinDatosReactivo" border="1">
-        <thead>
-          <tr>
-            <th>Nombre</th>
-            <th>Correo</th>
-            <th>Acciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let item of datosReactivo; let i = index">
-            <td>{{ item.nombre }}</td>
-            <td>{{ item.correo }}</td>
-            <td>
-              <button (click)="editar(i)">Editar</button>
-              <button (click)="eliminar(i)">Eliminar</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-  
-      <ng-template #sinDatosReactivo>
-        <p>No hay datos para mostrar.</p>
-      </ng-template>
-
-      <!-- Formulario de edición -->
-<div *ngIf="editando" class="form-edicion">
-    <h4>Editando Registro</h4>
-    <form (ngSubmit)="guardarEdicion()">
+  @if (vistaActual === 'template') {
+    <form #claseForm="ngForm" (ngSubmit)="registrarClase(claseForm)">
       <label>
         Nombre:
-        <input type="text" [(ngModel)]="formEditar.nombre" name="nombre" required />
+        <input type="text" name="nombre" [(ngModel)]="formTemplate.nombre" required />
       </label>
+
       <label>
         Correo:
-        <input type="email" [(ngModel)]="formEditar.correo" name="correo" required />
+        <input type="email" name="correo" [(ngModel)]="formTemplate.correo" required />
       </label>
-      <br />
-      <button type="submit">Guardar</button>
-      <button type="button" (click)="cancelarEdicion()">Cancelar</button>
+
+      <label>
+        Clase:
+        <select name="clase" [(ngModel)]="formTemplate.clase" required>
+          <option value="" disabled selected>Seleccione una clase</option>
+          @for (c of clasesDisponibles; track c) {
+            <option [value]="c">{{ c }}</option>
+          }
+        </select>
+      </label>
+
+      <label>
+        Horario:
+        <input type="time" name="horario" [(ngModel)]="formTemplate.horario" required />
+      </label>
+
+      <label>
+        Fecha:
+        <input type="date" name="fecha" [(ngModel)]="formTemplate.fecha" [min]="hoy" required />
+      </label>
+
+      <fieldset>
+        <legend>Equipamiento</legend>
+        @for (equipo of opcionesEquipo; track equipo) {
+          <label>
+            <input
+              type="checkbox"
+              name="equipo"
+              [value]="equipo"
+              (change)="actualizarEquipamiento($event)"
+              [checked]="formTemplate.equipamiento.includes(equipo)"
+            />
+            {{ equipo }}
+          </label>
+        }
+      </fieldset>
+
+      <button type="submit">
+        {{ modoEdicion ? 'Actualizar Clase' : 'Registrar Clase' }}
+      </button>
     </form>
-  </div>  
-    </div>
-  </div>
-  
+  }
+
+  @if (vistaActual === 'tabla') {
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Clase</th>
+          <th>Horario</th>
+          <th>Fecha</th>
+          <th>Equipamiento</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (r of datosTemplate; track r.id) {
+          <tr>
+            <td>{{ r.nombre }}</td>
+            <td>{{ r.correo }}</td>
+            <td>{{ r.clase }}</td>
+            <td>{{ r.horario }}</td>
+            <td>{{ r.fecha }}</td>
+            <td>{{ r.equipamiento.join(', ') }}</td>
+            <td>
+              <button (click)="editarRegistro(r)">Editar</button>
+              <button (click)="eliminarRegistro(r)">Eliminar</button>
+            </td>
+          </tr>
+        }
+        @if (datosTemplate.length === 0) {
+          <tr>
+            <td colspan="7">No hay registros aún.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>
