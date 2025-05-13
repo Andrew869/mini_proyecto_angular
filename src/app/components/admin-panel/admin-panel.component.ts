@@ -11,90 +11,64 @@ import Swal from 'sweetalert2';
   styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit {
-  vistaActual: 'template' | 'reactivo' = 'template';
-
   datosTemplate: any[] = [];
-  datosReactivo: any[] = [];
+
   formTemplate: {
+    id?: number;
     nombre: string;
     correo: string;
     clase: string;
     horario: string;
     fecha: string;
     equipamiento: string[];
-  } = {
-    nombre: '',
-    correo: '',
-    clase: '',
-    horario: '',
-    fecha: '',
-    equipamiento: []
-  };
+  } = this.inicializarFormulario();
 
+<<<<<<< HEAD
   editando: boolean = false;
   indexEditando: number | null = null;
   formEditar = { nombre: '', correo: '' };
 
   clasesDisponibles = ['Yoga', 'Zumba', 'Spinnig', 'Pilates', 'Crossfit'];
+=======
+  clasesDisponibles = ['Yoga', 'Spinning', 'Zumba', 'Pilates', 'Crossfit'];
+>>>>>>> origin/RamaVale
   opcionesEquipo = ['Tapete para yoga', 'Pesas', 'Cuerda', 'Banda Elástica'];
   hoy = new Date().toISOString().split('T')[0];
+
+  vistaActual: string = 'template';
+  modoEdicion: boolean = false;
 
   ngOnInit(): void {
     this.cargarDatos();
   }
 
-  seleccionarVista(vista: 'template' | 'reactivo') {
-    this.vistaActual = vista;
-    this.cancelarEdicion();
+  inicializarFormulario() {
+    return {
+      id: undefined,
+      nombre: '',
+      correo: '',
+      clase: '',
+      horario: '',
+      fecha: '',
+      equipamiento: []
+    };
   }
 
   cargarDatos() {
     const tData = localStorage.getItem('datosTemplate');
-    const rData = localStorage.getItem('datosReactivo');
     this.datosTemplate = tData ? JSON.parse(tData) : [];
-    this.datosReactivo = rData ? JSON.parse(rData) : [];
   }
 
   guardarDatos() {
     localStorage.setItem('datosTemplate', JSON.stringify(this.datosTemplate));
-    localStorage.setItem('datosReactivo', JSON.stringify(this.datosReactivo));
-  }
-
-  eliminar(index: number) {
-    const datos = this.vistaActual === 'template' ? this.datosTemplate : this.datosReactivo;
-    datos.splice(index, 1);
-    this.guardarDatos();
-  }
-
-  editar(index: number) {
-    this.editando = true;
-    this.indexEditando = index;
-
-    const datos = this.vistaActual === 'template' ? this.datosTemplate : this.datosReactivo;
-    const registro = datos[index];
-    this.formEditar = { ...registro };
-  }
-
-  guardarEdicion() {
-    if (this.indexEditando === null) return;
-
-    const datos = this.vistaActual === 'template' ? this.datosTemplate : this.datosReactivo;
-    datos[this.indexEditando] = { ...this.formEditar };
-
-    this.guardarDatos();
-    this.cancelarEdicion();
-  }
-
-  cancelarEdicion() {
-    this.editando = false;
-    this.indexEditando = null;
-    this.formEditar = { nombre: '', correo: '' };
   }
 
   actualizarEquipamiento(event: any) {
     const value = event.target.value;
     if (event.target.checked) {
-      this.formTemplate.equipamiento.push(value);
+      if (!this.formTemplate.equipamiento.includes(value)) {
+        this.formTemplate.equipamiento.push(value);
+      }
     } else {
       this.formTemplate.equipamiento = this.formTemplate.equipamiento.filter(e => e !== value);
     }
@@ -103,25 +77,58 @@ export class AdminPanelComponent implements OnInit {
   registrarClase(form: any) {
     if (form.invalid || this.formTemplate.equipamiento.length === 0) return;
 
-    this.datosTemplate.push({ ...this.formTemplate });
+    if (this.modoEdicion) {
+      const index = this.datosTemplate.findIndex(d => d.id === this.formTemplate.id);
+      if (index !== -1) {
+        this.datosTemplate[index] = { ...this.formTemplate };
+      }
+      Swal.fire({
+        icon: 'success',
+        title: '¡Registro actualizado!',
+        text: 'La clase fue modificada correctamente.',
+        timer: 2000,
+        showConfirmButton: false
+      });
+    } else {
+      // Nuevo registro
+      this.formTemplate.id = Date.now();
+      this.datosTemplate.push({ ...this.formTemplate });
+
+      Swal.fire({
+        icon: 'success',
+        title: '¡Registro exitoso!',
+        text: 'Tu clase personalizada ha sido registrada.',
+        timer: 2000,
+        showConfirmButton: false
+      });
+    }
+
     this.guardarDatos();
-    this.formTemplate = {
-      nombre: '',
-      correo: '',
-      clase: '',
-      horario: '',
-      fecha: '',
-      equipamiento: []
-    };
-
-    Swal.fire({
-      icon: 'success',
-      title: '¡Registro exitoso!',
-      text: 'Tu clase personalizada ha sido registrada.',
-      timer: 2000,
-      showConfirmButton: false
-    });
-
     form.resetForm();
+    this.formTemplate = this.inicializarFormulario();
+    this.modoEdicion = false;
+  }
+
+  editarRegistro(registro: any) {
+    this.formTemplate = { ...registro };
+    this.modoEdicion = true;
+    this.vistaActual = 'template';
+  }
+
+  eliminarRegistro(registro: any) {
+    Swal.fire({
+      title: '¿Eliminar este registro?',
+      text: 'Esta acción no se puede deshacer.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.datosTemplate = this.datosTemplate.filter(r => r.id !== registro.id);
+        this.guardarDatos();
+        Swal.fire('Eliminado', 'El registro ha sido eliminado.', 'success');
+      }
+    });
   }
 }
