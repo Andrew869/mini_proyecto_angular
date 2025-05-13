@@ -23,15 +23,11 @@ export class AdminPanelComponent implements OnInit {
     equipamiento: string[];
   } = this.inicializarFormulario();
 
-<<<<<<< HEAD
   editando: boolean = false;
   indexEditando: number | null = null;
   formEditar = { nombre: '', correo: '' };
 
   clasesDisponibles = ['Yoga', 'Zumba', 'Spinnig', 'Pilates', 'Crossfit'];
-=======
-  clasesDisponibles = ['Yoga', 'Spinning', 'Zumba', 'Pilates', 'Crossfit'];
->>>>>>> origin/RamaVale
   opcionesEquipo = ['Tapete para yoga', 'Pesas', 'Cuerda', 'Banda Elástica'];
   hoy = new Date().toISOString().split('T')[0];
 
