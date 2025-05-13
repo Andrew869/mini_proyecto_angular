@@ -38,7 +38,6 @@ export class ClassesComponent implements OnInit {
   searchTerm: string = '';
   loading: boolean = true;
   error: string | null = null;
-  selectedClassMessage: string = '';
 
   constructor(private apiService: ApiService) {}
 
@@ -81,15 +80,5 @@ export class ClassesComponent implements OnInit {
         this.loading = false;
       }
     });
-  }
-
-  onDoneClick(): void {
-    const term = this.searchTerm.toLowerCase().trim();
-    const foundClass = this.classes.find(c => c.name.toLowerCase() === term);
-    if (foundClass) {
-      this.selectedClassMessage = `Clase encontrada: ${foundClass.name}`;
-    } else {
-      this.selectedClassMessage = 'La clase no existe';
-    }
   }
 }

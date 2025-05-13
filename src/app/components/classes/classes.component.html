@@ -1,7 +1,7 @@
     <main class="classes-container">
       <section class="classes-hero">
         <div class="classes-hero-content">
-          <h1>Nusetras clases</h1>
+          <h1>Nuestras clases</h1>
           <p>Descubre el entrenamiento perfecto para tu viaje fitness</p>
         </div>
       </section>
@@ -15,10 +15,6 @@
             [(ngModel)]="searchTerm"
             (keyup)="searchClasses()"
           >
-          <button mat-raised-button color="primary" (click)="onDoneClick()">Hecho</button>
-        </div>
-        <div class="search-result-message" *ngIf="selectedClassMessage">
-          <p>{{ selectedClassMessage }}</p>
         </div>
       </section>
       
