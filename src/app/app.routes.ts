@@ -1,12 +1,5 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './auth.guard';
-// import { HomeComponent } from './components/home/home.component';
-// import { AboutComponent } from './components/about/about.component';
-// import { ClassesComponent } from './components/classes/classes.component';
-// import { TrainersComponent } from './components/trainers/trainers.component';
-// import { ContactComponent } from './components/contact/contact.component';
-// import { LoginComponent } from './components/login/login.component';
-// import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 
 export const routes: Routes = [
   {path: 'home', redirectTo: '/', pathMatch: 'full'},

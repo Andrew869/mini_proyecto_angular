@@ -16,12 +16,12 @@ export class ApiService {
   // private trainersApiUrl = '/trainers.json';
 
   //URL Principal
-  // private classesApiUrl = 'https://fitness-Classes.free.beeceptor.com';
-  //private trainersApiUrl = 'https://fitness-trainers.free.beeceptor.com';
+  private classesApiUrl = 'https://fitness-Classes.free.beeceptor.com';
+  private trainersApiUrl = 'https://fitness-trainers.free.beeceptor.com';
   
   //URL Provisional
-  private classesApiUrl = 'https://gym-classes.free.beeceptor.com';
-  private trainersApiUrl = 'https://apiservice.free.beeceptor.com';
+  // private classesApiUrl = 'https://why-50.free.beeceptor.com';
+  // private trainersApiUrl = 'https://atrain.free.beeceptor.com';
   
   private backupClassesData: GymClass[] = [
     {
