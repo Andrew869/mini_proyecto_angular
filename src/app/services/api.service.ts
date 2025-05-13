@@ -8,8 +8,9 @@ import { Trainer } from '../interfaces/trainer.interface'
   providedIn: 'root'
 })
 export class ApiService {
-  private classesApiUrl = 'https://angula.free.beeceptor.com/';
-  private trainersApiUrl = 'https://auxit.free.beeceptor.com';
+  // Cambiar las URLs para que apunten a los archivos JSON locales en la carpeta public
+  private classesApiUrl = '/classes.json';
+  private trainersApiUrl = '/trainers.json';
   //private classesApiUrl = 'https://fitness-Classes.free.beeceptor.com';//
   //private trainersApiUrl = 'https://fitness-trainers.free.beeceptor.com';//
   
